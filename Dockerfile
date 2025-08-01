@@ -1,4 +1,4 @@
-FROM golang:1.24
+FROM golang:1.24 AS builder
 
 WORKDIR /build
 
@@ -13,5 +13,9 @@ RUN go build -v -o mokujin
 FROM gcr.io/distroless/static-debian12
 
 WORKDIR /mokujin
-# COPY --from=builder /build/mokujin /mokujin/
-CMD ["/build/mokujin"]
+
+# Copy the binary from the builder stage to the final image
+COPY --from=builder /build/mokujin /mokujin/mokujin
+
+# Run the binary from the correct path
+CMD ["/mokujin/mokujin"]
