@@ -18,4 +18,4 @@ WORKDIR /mokujin
 COPY --from=builder /build/mokujin /mokujin/mokujin
 
 # Run the binary from the correct path
-CMD ["/mokujin/mokujin"]
+CMD ["/build/mokujin"]
